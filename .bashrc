@@ -115,3 +115,14 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+##########################################################
+################## CUSTOM BELOW HERE #####################
+##########################################################
+
+# preferred prompt string
+PS1="\u@\h\w\$ "
+
+# some dumb shit
+fortune | cowsay
+

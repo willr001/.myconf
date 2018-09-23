@@ -4,18 +4,26 @@
 # exclude patterns (uncomment them if you want to use them):
 # *.[oa]
 # *~
-.bash_history
+.myconf/**
+
+Desktop/**
+Downloads/**
+Pictures/*
+
+Steam/**
 .cache/**
+snap/**
+
+src/**
+
+.viminfo
+.bash_history
+
+*authority
+
 *~
 *.bak
 *.orig
 *.swp
 *.swo
 *.swn
-snap/**
-Downloads/**
-Desktop/**
-Steam/**
-src/**
-.myconf/**
-.viminfo
