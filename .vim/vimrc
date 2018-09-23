@@ -1,0 +1,363 @@
+" This vimrc file was created by William Reynolds, and may be freely used or
+" modified by anyone for any (or no) purpose freely and with no restrictions
+"
+" vim:fdm=indent
+"
+    " Determine client/environment
+    let iswin = (has('win32') && (&shellcmdflag =~ '/'))
+    let isgui = (has("gui_running"))
+    let iscemu = (!empty($CONEMUBUILD) && !isgui)
+
+    if $COLORTERM == 'gnome-terminal'
+        set t_Co=256
+    elseif $COLORTERM == 'truecolor'
+        set t_Co=256
+    endif
+"
+    " Set paths
+    let myvimdir = fnamemodify(expand('$myvimrc'), ":p:h")
+    let bundleDir = myvimdir . "/bundle"
+    let &directory = myvimdir . "/swap//,$TEMP,$TMP,."
+    let &backupdir = myvimdir . "/backup//,$TEMP,$TMP,."
+    let &undodir = myvimdir . "/undo//,$TEMP,$TMP,."
+    if iswin
+        let $PYTHONPATH = "C:\\tools\\Python27\\Lib;C:\\Tools\\Python27\\DLLs;C:\\Tools\\Python27\\Lib\\lib-tk"
+        let $PYTHONHOME = "C:\\tools\\Python27"
+        "let $PYTHONPATH = "C:\\tools\\Python35\\Lib;C:\\Tools\\Python35\\DLLs;C:\\Tools\\Python35\\Lib\\lib-tk"
+        "let $PYTHONHOME = "C:\\tools\\Python35"
+    endif
+"
+    " Setup vundle.vim / plugins
+"    set nocompatible
+"    filetype off
+"    let &runtimepath .= ',' . expand(bundleDir) . '/vundle.vim'
+"    call vundle#rc(expand(bundleDir))
+"    call vundle#begin() " required first
+"    Plugin 'vundlevim/vundle.vim'
+"    "nerdtree file browser/creation/bookmarking
+"    Plugin 'scrooloose/nerdtree'
+"    "airline sexy statusbar action
+"    Plugin 'vim-airline/vim-airline'
+"    Plugin 'vim-airline/vim-airline-themes'
+"    "Slime for vim, get a Lisp REPL by connecting to a swank server
+"    Plugin 'kovisoft/slimv'
+"    Plugin 'Valloric/YouCompleteMe'
+"    "colorschemes
+"    Plugin 'candy.vim'
+"    Plugin 'candyman.vim'
+"    Plugin 'candycode.vim'
+"    Plugin 'Distinguished'
+"    Plugin 'jellybeans.vim'
+"    Plugin 'NLKNguyen/papercolor-theme'
+"    Plugin 'obsidian'
+"    Plugin 'Railscasts-Theme-GUIand256color'
+"    Plugin 'altercation/vim-colors-solarized'
+"    Plugin 'chriskempson/vim-tomorrow-theme'
+"    Plugin 'twilight256.vim'
+"    Plugin 'xoria256.vim'
+"    Plugin 'wombat256.vim'
+"    Plugin 'jnurmine/Zenburn'
+"    call vundle#end() " required last
+"
+    " VIM Config
+            " display
+            set scrolloff=2
+            let &breakat = ' '
+            let &showbreak = '++> '
+            set nowrap
+            set textwidth=0
+            "set fillchars+=vert:│
+            "set fillchars+=vert:║
+            "set fillchars+=vert:▓
+            "set fillchars+=vert:█
+        "
+            " size
+            set winheight=7 winwidth=7
+            set winminheight=3 winminwidth=3
+        "
+            " line numbers
+            set number relativenumber numberwidth=1
+        "
+            " highlighting
+            if &t_Co > 2 || has("gui_running")
+                syntax on
+                let c_comment_strings=1 " highlighting strings inside C comments
+                set hlsearch " Switch on highlighting the last used search pattern
+            endif
+        "
+            " statusbar
+            set laststatus=2 wildmenu " always show status line and use for completion match
+            set ruler showcmd showmode "always show ruler, mode and incomplete commands
+        "
+            " diffs
+            set diffopt += "context:3 iwhite vertical"
+        "
+            " theme
+            syntax enable
+            silent! colorscheme solarized
+            "set background=light
+            set background=dark
+            silent! let g:airline_theme = 'solarized'
+            silent! let g:airline_solarized_bg = 'dark'
+            silent! AirlineRefresh
+        "
+            " environment
+            set wcm=<C-Z> " for wildmenu, opens possibilites like tab, but works in mappings, too
+            set wildmenu
+            set encoding=utf-8
+            set modeline modelines=5
+            set ttimeout ttimeoutlen=100 " wait up to 100ms after Esc for special key
+            set lazyredraw " don't update screen during macro execution
+            set hidden " allow hidden buffers
+            set history=200 " keep 200 lines of command line history
+            set nrformats-=octal " Do not recognize octal numbers for Ctrl-A and Ctrl-X
+            set makeprg=rake " set rake as the default build program
+            set cpo-=< " < flag causes <> in mappings to be literal
+            if has('reltime')
+                set incsearch " Do incremental searching when it's possible to timeout
+            endif
+            if has('langmap') && exists('+langremap')
+                set nolangremap " Prevent that the langmap option applies to characters that result from a mapping.  If set (default), this may break plugins
+            endif
+        "
+            " tabs
+            set expandtab tabstop=4 shiftwidth=4 softtabstop=4 shiftround
+            " BACKUP AND UNDO
+            if has("vms")
+            set nobackup " do not keep a backup file, use versions instead
+            else
+            set backup " keep a backup file (restore to previous version)
+            if has('persistent_undo')
+                set undofile " keep an undo file (undo changes after closing)
+            endif
+            endif
+        "
+            " backspace
+            set backspace=indent,eol,start " Allow backspacing over everything in insert mode
+        "
+            " mouse
+            if has('mouse')
+                set mouse=a
+            endif
+        "
+"
+    " Key Bindings
+    "
+        " Leaders
+        let mapleader = '\'
+        let maplocalleader = 'L'
+        map , <leader>
+        " nerdtree
+        nnoremap <leader>ntt :NERDTreeCWD<cr>
+        nnoremap <leader>ntc :NERDTreeClose<cr>
+        nnoremap <leader>nt<space> :NERDTree<space><c-z>
+        nnoremap <leader>ntb :NERDTreeFromBookmark<space><c-z>
+        " edit vimrc
+        nnoremap <leader>ev :tabedit $MYVIMRC<CR>
+        " Change cOlor Background
+        nnoremap <leader>cob :let &background = ( &background == "dark"? "light" : "dark" )<CR>
+        " delete trailing
+        nnoremap <leader>dt :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR> ''
+    "
+        " Function Keys
+        nnoremap <f2> :cp<cr>
+        nnoremap <f3> :cn<cr>
+        nnoremap <f4> :bp<cr>:sp<cr>:bn<cr>:bd<cr>
+        nnoremap <f5> :wall<cr>:silent! make<cr>:cope<cr><cr>
+        nnoremap <f6> :wall<cr>:silent!ctags --fields=+l --langmap=c:.c.h -R .<cr>
+        nmap <f7> <f6><f5>
+        nnoremap <f8> :cope<cr>
+        nnoremap <f9> :ll<cr>
+        source $VIMRUNTIME/menu.vim
+        noremap <f10> :emenu <C-Z>
+        nnoremap <f11> :let &background = ( &background == "dark"? "light" : "dark" )<CR>
+    "
+        " Spacebar
+        " spacebar as page down/up like in browser
+        nnoremap <space> 
+        nnoremap <s-space> 
+        " ctrl-space toggles command mode
+        noremap <c-space> :
+    "
+        " Alphas
+        " K - Kut -- change man lookup to break line to match J being Join line
+        nnoremap K i<CR><Esc>
+        " g commands
+            " buffer next/prev
+            nnoremap gB :bp<cr>
+            nnoremap gb :bn<cr>
+            " insert line
+            nnoremap go o<esc>
+            nnoremap gO O<esc>
+    "
+        " Ctrl Keys
+        " Move line
+        nnoremap <c-j> "qdd"qp
+        nnoremap <c-k> "qddk"qP
+        " Uppercase word
+        inoremap <c-u> <esc>viwUea
+        nnoremap <c-u> viwUe
+        " Easier Put/Yank/Delete using clipboard register
+        nnoremap <c-p> "*P
+        nnoremap <c-y> "*y
+        nnoremap <c-d> "*d
+        " replace
+        nnoremap <c-h> "zyiw:%s/\<<c-r>z\>//g<left><left>
+        " Save
+        nnoremap <c-s> :w<cr>
+        inoremap <c-s> <esc>:w<cr>a
+    "
+"
+    " Autocommands
+    " Only do this part when compiled with support for autocommands.
+    if has("autocmd")
+        " Enable file type detection.
+        filetype plugin indent on
+
+        " Put these in an autocmd group, so that you can revert them with:
+        augroup vrcOnRead
+            au!
+            " When editing a file, always jump to the last known cursor position.
+            " Don't do it when the position is invalid or when inside an event handler
+            " (happens when dropping a file on gvim).
+            autocmd BufReadPost *
+                \ if line("'\"") >= 1 && line("'\"") <= line("$") |
+                \   exe "normal! g`\"" |
+                \ endif
+        augroup END
+
+        augroup vrcAutoreload
+            au!
+            autocmd BufWritePost,FileWritePost $MYVIMRC source $MYVIMRC
+        augroup END
+
+        augroup vrcFiletypes
+            au!
+            autocmd FileType yaml setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
+            autocmd FileType c nnoremap <buffer> <leader>; I//<esc>
+            autocmd FileType c set fdm=indent
+            autocmd FileType bat nnoremap <buffer> <leader>; I::<esc>
+            autocmd FileType vim nnoremap <buffer> <leader>; I"<esc>
+        augroup END
+    else
+        set autoindent		" always set autoindenting on
+    endif " has("autocmd")
+"
+    " Commands
+        " DiffOrig
+        if !exists(":DiffOrig")
+            " Convenient command to see the changes you made.
+            " Revert with: ":delcommand DiffOrig".
+            command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+                    \ | wincmd p | diffthis
+        endif
+"
+    " Plugin Config
+        " Packadd Config
+        " The matchit plugin makes the % command work better
+        if has('syntax') && has('eval') && has('packadd')
+        packadd matchit
+        endif
+    " 
+        " Airline Config
+        " lets airline use the fancy arrow thingies
+        if !exists('g:airline_symbols')
+            let g:airline_symbols = {}
+        endif
+        let g:airline_left_sep = ''
+        let g:airline_left_alt_sep = ''
+        let g:airline_right_sep = ''
+        let g:airline_right_alt_sep = ''
+        let g:airline_symbols.branch = ''
+        let g:airline_symbols.readonly = ''
+        let g:airline_symbols.linenr = ''
+        let g:airline#extensions#tabline#enabled = 1
+        let g:airline#extensions#tabline#left_sep = ' '
+        let g:airline#extensions#tabline#left_alt_sep = '|'
+    "
+        " YCM Config
+        let g:ycm_path_to_python_interpreter = '\tools\python27'
+        let g:ycm_server_python_interpreter = '\tools\python27\python.exe'
+        "let g:ycm_global_ycm_extra_conf = '~/vimfiles/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+        let g:ycm_collect_identifiers_from_tags_files = 1
+        let g:ycm_always_populate_location_list = 1
+    " 
+        " SlimV Config
+        let g:slimv_leader = 'S'
+        let g:slimv_lisp = 'mit-scheme'
+        "let g:slimv_lisp = 'C:/Program Files/Racket/Racket.exe'
+        let g:slimv_preferred = 'mit'
+        let g:slimv_keybindings = 2
+        let g:slimv_swank_cmd = '!swank-mit'
+        let g:slimv_python_version = 2
+        "let g:slimv_swank_cmd = '!swank-racket'
+        "
+"
+    " Client Specific Settings
+        " GUI Settings
+        if isgui
+            nnoremap <c-^> <c-]> " gVim hates programmer's dvorak, apparently, fix ctrl-]
+            " uses external windows clipboard for selections
+            set guioptions+=a
+            " block forking of process, lets hg and such wait for response
+            set guioptions+=f
+            " gui tabs
+            set guioptions-=e
+            " menubar
+            set guioptions+=m "use menu
+            set guioptions-=t "tear-off menu
+            set guioptions+=g "grey disabled items vs hidden
+            " toolbar
+            set guioptions-=T
+            " scrollbars
+            set guioptions-=b "bottom
+            set guioptions-=r "right
+            set guioptions-=R "right vsplit
+            set guioptions-=l "left
+            set guioptions-=L "left vsplit
+            " font
+            if iswin
+                set guifont=mononoki:h12:cANSI:qDRAFT
+            else
+                set guifont=Consolas\ 11
+            endif
+        endif
+    "
+        " ConEmu Settings
+        if iscemu
+            set termencoding=utf8
+            set term=xterm
+            " lets the scrollwheel work
+            inoremap <Esc>[62~ <C-X><C-E>
+            inoremap <Esc>[63~ <C-X><C-Y>
+            nnoremap <Esc>[62~ <C-E>
+            nnoremap <Esc>[63~ <C-Y>
+            " lets the arrow keys work
+            noremap <Esc>[OA <left>
+            noremap! <Esc>[OA <left>
+            noremap <Esc>[OB <down>
+            noremap! <Esc>[OB <down>
+            noremap <Esc>[OC <right>
+            noremap! <Esc>[OC <right>
+            noremap <Esc>[OD <up>
+            noremap! <Esc>[OD <up>
+            if &term == "xterm"
+                " xterm settings
+                " report colors so plugins and such know to use them
+                set t_Co=256
+                " color sequences
+                let &t_AB="\e[48;5;%dm"
+                let &t_AF="\e[38;5;%dm"
+                " stuff for cursor modes
+                let &t_te="\e[0 q"
+                let &t_ti="\e[1 q"
+                let &t_EI="\e[1 q"
+                let &t_SI="\e[5 q"
+                let &t_SR="\e[3 q"
+                " fix  for broken backspace
+                noremap! <Char-0x07F> <BS>
+                nnoremap <Char-0x07F> <BS>
+            endif
+        endif
+
+        set fillchars+=vert:░

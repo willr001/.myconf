@@ -4,22 +4,30 @@
 # exclude patterns (uncomment them if you want to use them):
 # *.[oa]
 # *~
+
 .myconf/**
 
 Desktop/**
 Downloads/**
-Pictures/*
-
-Steam/**
-.cache/**
-snap/**
+Music/**
+Pictures/**
+Videos/**
 
 src/**
 
-.viminfo
-.bash_history
+*hst
+*hist
+*history
+.cache/**
+.nv/**
 
+snap/**
+.ssh/**
 *authority
+
+.sudo_as_admin_successful
+.pulse_cookie
+.viminfo
 
 *~
 *.bak
@@ -27,3 +35,7 @@ src/**
 *.swp
 *.swo
 *.swn
+
+Steam/logs/**
+.steampid
+.steampath
