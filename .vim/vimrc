@@ -20,44 +20,6 @@
     let &directory = myvimdir . "/swap//,$TEMP,$TMP,."
     let &backupdir = myvimdir . "/backup//,$TEMP,$TMP,."
     let &undodir = myvimdir . "/undo//,$TEMP,$TMP,."
-    if iswin
-        let $PYTHONPATH = "C:\\tools\\Python27\\Lib;C:\\Tools\\Python27\\DLLs;C:\\Tools\\Python27\\Lib\\lib-tk"
-        let $PYTHONHOME = "C:\\tools\\Python27"
-        "let $PYTHONPATH = "C:\\tools\\Python35\\Lib;C:\\Tools\\Python35\\DLLs;C:\\Tools\\Python35\\Lib\\lib-tk"
-        "let $PYTHONHOME = "C:\\tools\\Python35"
-    endif
-"
-    " Setup vundle.vim / plugins
-"    set nocompatible
-"    filetype off
-"    let &runtimepath .= ',' . expand(bundleDir) . '/vundle.vim'
-"    call vundle#rc(expand(bundleDir))
-"    call vundle#begin() " required first
-"    Plugin 'vundlevim/vundle.vim'
-"    "nerdtree file browser/creation/bookmarking
-"    Plugin 'scrooloose/nerdtree'
-"    "airline sexy statusbar action
-"    Plugin 'vim-airline/vim-airline'
-"    Plugin 'vim-airline/vim-airline-themes'
-"    "Slime for vim, get a Lisp REPL by connecting to a swank server
-"    Plugin 'kovisoft/slimv'
-"    Plugin 'Valloric/YouCompleteMe'
-"    "colorschemes
-"    Plugin 'candy.vim'
-"    Plugin 'candyman.vim'
-"    Plugin 'candycode.vim'
-"    Plugin 'Distinguished'
-"    Plugin 'jellybeans.vim'
-"    Plugin 'NLKNguyen/papercolor-theme'
-"    Plugin 'obsidian'
-"    Plugin 'Railscasts-Theme-GUIand256color'
-"    Plugin 'altercation/vim-colors-solarized'
-"    Plugin 'chriskempson/vim-tomorrow-theme'
-"    Plugin 'twilight256.vim'
-"    Plugin 'xoria256.vim'
-"    Plugin 'wombat256.vim'
-"    Plugin 'jnurmine/Zenburn'
-"    call vundle#end() " required last
 "
     " VIM Config
             " display
@@ -68,6 +30,7 @@
             set textwidth=0
             "set fillchars+=vert:│
             "set fillchars+=vert:║
+            set fillchars+=vert:░
             "set fillchars+=vert:▓
             "set fillchars+=vert:█
         "
@@ -258,7 +221,16 @@
         if has('syntax') && has('eval') && has('packadd')
         packadd matchit
         endif
-    " 
+
+        " Syntastic
+        set statusline+=%#warningmsg#
+        set statusline+=%{SyntasticStatuslineFlag()}
+        set statusline+=%*
+        let g:syntastic_always_populate_loc_list = 1
+        let g:syntastic_auto_loc_list = 1
+        let g:syntastic_check_on_open = 1
+        let g:syntastic_check_on_wq = 0
+"
         " Airline Config
         " lets airline use the fancy arrow thingies
         if !exists('g:airline_symbols')
@@ -322,42 +294,3 @@
                 set guifont=Consolas\ 11
             endif
         endif
-    "
-        " ConEmu Settings
-        if iscemu
-            set termencoding=utf8
-            set term=xterm
-            " lets the scrollwheel work
-            inoremap <Esc>[62~ <C-X><C-E>
-            inoremap <Esc>[63~ <C-X><C-Y>
-            nnoremap <Esc>[62~ <C-E>
-            nnoremap <Esc>[63~ <C-Y>
-            " lets the arrow keys work
-            noremap <Esc>[OA <left>
-            noremap! <Esc>[OA <left>
-            noremap <Esc>[OB <down>
-            noremap! <Esc>[OB <down>
-            noremap <Esc>[OC <right>
-            noremap! <Esc>[OC <right>
-            noremap <Esc>[OD <up>
-            noremap! <Esc>[OD <up>
-            if &term == "xterm"
-                " xterm settings
-                " report colors so plugins and such know to use them
-                set t_Co=256
-                " color sequences
-                let &t_AB="\e[48;5;%dm"
-                let &t_AF="\e[38;5;%dm"
-                " stuff for cursor modes
-                let &t_te="\e[0 q"
-                let &t_ti="\e[1 q"
-                let &t_EI="\e[1 q"
-                let &t_SI="\e[5 q"
-                let &t_SR="\e[3 q"
-                " fix  for broken backspace
-                noremap! <Char-0x07F> <BS>
-                nnoremap <Char-0x07F> <BS>
-            endif
-        endif
-
-        set fillchars+=vert:░

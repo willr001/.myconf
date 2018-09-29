@@ -120,6 +120,10 @@ fi
 ################## CUSTOM BELOW HERE #####################
 ##########################################################
 
+function start () {
+    xdg-open "$@">/dev/null 2>&1
+}
+
 # preferred prompt string
 PS1="\u@\h\w\$ "
 
