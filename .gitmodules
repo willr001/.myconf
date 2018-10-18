@@ -13,3 +13,6 @@
 [submodule ".vim/pack/plugins/start/conque-gdb"]
 	path = .vim/pack/plugins/start/conque-gdb
 	url = https://github.com/vim-scripts/Conque-GDB.git
+[submodule "/home/will/.vim/pack/plugins/start/YouCompleteMe"]
+	path = /home/will/.vim/pack/plugins/start/YouCompleteMe
+	url = https://github.com/valloric/youcompleteme.git
