@@ -5,13 +5,11 @@
 "
     " Determine client/environment
     let iswin = (has('win32') && (&shellcmdflag =~ '/'))
-    let isgui = (has("gui_running"))
-    let iscemu = (!empty($CONEMUBUILD) && !isgui)
 
-    if $COLORTERM == 'gnome-terminal'
-        set t_Co=256
-    elseif $COLORTERM == 'truecolor'
-        set t_Co=256
+    set t_Co=256
+
+    if has ('vcon')
+        set termguicolors
     endif
 "
     " Set paths
@@ -20,6 +18,54 @@
     let &directory = myvimdir . "/swap//,$TEMP,$TMP,."
     let &backupdir = myvimdir . "/backup//,$TEMP,$TMP,."
     let &undodir = myvimdir . "/undo//,$TEMP,$TMP,."
+"
+    " Vundle / Plugins
+    set nocompatible              " be iMproved, required
+    filetype off                  " required
+    " set the runtime path to include Vundle and initialize
+    set rtp+=~/.vim/bundle/Vundle.vim
+    call vundle#begin()
+    " let Vundle manage Vundle, required
+    Plugin 'VundleVim/Vundle.vim'
+    " nerdtree file browser/creation/bookmarking
+    Plugin 'scrooloose/nerdtree'
+    " airline sexy statusbar action
+    Plugin 'vim-airline/vim-airline'
+    Plugin 'vim-airline/vim-airline-themes'
+    " Slime for vim, get a Lisp REPL by connecting to a swank server
+    "Plugin 'kovisoft/slimv'
+    " YCM auto-completion engine
+    "Plugin 'Valloric/YouCompleteMe'
+    " Colorschemes
+    "Plugin 'candy.vim'
+    "Plugin 'candyman.vim'
+    "Plugin 'candycode.vim'
+    "Plugin 'Distinguished'
+    Plugin 'morhetz/gruvbox'
+    "Plugin 'jellybeans.vim'
+    "Plugin 'NLKNguyen/papercolor-theme'
+    "Plugin 'obsidian'
+    "Plugin 'Railscasts-Theme-GUIand256color'
+    "Plugin 'altercation/vim-colors-solarized'
+    "Plugin 'chriskempson/vim-tomorrow-theme'
+    "Plugin 'twilight256.vim'
+    "Plugin 'xoria256.vim'
+    "Plugin 'wombat256.vim'
+    "Plugin 'jnurmine/Zenburn'
+    " All of your Plugins must be added before the following line
+    call vundle#end()            " required
+    filetype plugin indent on    " required
+    " To ignore plugin indent changes, instead use:
+    "filetype plugin on
+    "
+    " Brief help
+    " :PluginList       - lists configured plugins
+    " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+    " :PluginSearch foo - searches for foo; append `!` to refresh local cache
+    " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+    "
+    " see :h vundle for more details or wiki for FAQ
+    " Put your non-Plugin stuff after this line
 "
     " VIM Config
             " display
@@ -30,7 +76,7 @@
             set textwidth=0
             "set fillchars+=vert:│
             "set fillchars+=vert:║
-            set fillchars+=vert:░
+            "set fillchars+=vert:░
             "set fillchars+=vert:▓
             "set fillchars+=vert:█
         "
@@ -57,12 +103,11 @@
         "
             " theme
             syntax enable
-            silent! colorscheme solarized
+            colorscheme gruvbox
             "set background=light
             set background=dark
-            silent! let g:airline_theme = 'solarized'
-            silent! let g:airline_solarized_bg = 'dark'
-            silent! AirlineRefresh
+            let g:airline_theme = 'distinguished'
+            "silent! let g:airline_solarized_bg = 'dark'
         "
             " environment
             set wcm=<C-Z> " for wildmenu, opens possibilites like tab, but works in mappings, too
@@ -87,12 +132,12 @@
             set expandtab tabstop=4 shiftwidth=4 softtabstop=4 shiftround
             " BACKUP AND UNDO
             if has("vms")
-            set nobackup " do not keep a backup file, use versions instead
+                set nobackup " do not keep a backup file, use versions instead
             else
-            set backup " keep a backup file (restore to previous version)
-            if has('persistent_undo')
-                set undofile " keep an undo file (undo changes after closing)
-            endif
+                set backup " keep a backup file (restore to previous version)
+                if has('persistent_undo')
+                    set undofile " keep an undo file (undo changes after closing)
+                endif
             endif
         "
             " backspace
@@ -223,13 +268,13 @@
         endif
 
         " Syntastic
-        set statusline+=%#warningmsg#
-        set statusline+=%{SyntasticStatuslineFlag()}
-        set statusline+=%*
-        let g:syntastic_always_populate_loc_list = 1
-        let g:syntastic_auto_loc_list = 1
-        let g:syntastic_check_on_open = 1
-        let g:syntastic_check_on_wq = 0
+        "set statusline+=%#warningmsg#
+        "set statusline+=%{SyntasticStatuslineFlag()}
+        "set statusline+=%*
+        "let g:syntastic_always_populate_loc_list = 1
+        "let g:syntastic_auto_loc_list = 1
+        "let g:syntastic_check_on_open = 1
+        "let g:syntastic_check_on_wq = 0
 "
         " Airline Config
         " lets airline use the fancy arrow thingies
@@ -247,27 +292,27 @@
         let g:airline#extensions#tabline#left_sep = ' '
         let g:airline#extensions#tabline#left_alt_sep = '|'
     "
-        " YCM Config
-        "let g:ycm_path_to_python_interpreter = '\tools\python27'
-        "let g:ycm_server_python_interpreter = '\tools\python27\python.exe'
-        "let g:ycm_global_ycm_extra_conf = '~/vimfiles/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-        let g:ycm_collect_identifiers_from_tags_files = 1
-        let g:ycm_always_populate_location_list = 1
+        "" YCM Config
+        ""let g:ycm_path_to_python_interpreter = '\tools\python27'
+        ""let g:ycm_server_python_interpreter = '\tools\python27\python.exe'
+        ""let g:ycm_global_ycm_extra_conf = '~/vimfiles/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+        "let g:ycm_collect_identifiers_from_tags_files = 1
+        "let g:ycm_always_populate_location_list = 1
     " 
-        " SlimV Config
-        let g:slimv_leader = 'S'
-        let g:slimv_lisp = 'mit-scheme'
-        "let g:slimv_lisp = 'C:/Program Files/Racket/Racket.exe'
-        let g:slimv_preferred = 'mit'
-        let g:slimv_keybindings = 2
-        let g:slimv_swank_cmd = '!swank-mit'
-        let g:slimv_python_version = 2
-        "let g:slimv_swank_cmd = '!swank-racket'
-        "
+        "" SlimV Config
+        "let g:slimv_leader = 'S'
+        "let g:slimv_lisp = 'mit-scheme'
+        ""let g:slimv_lisp = 'C:/Program Files/Racket/Racket.exe'
+        "let g:slimv_preferred = 'mit'
+        "let g:slimv_keybindings = 2
+        "let g:slimv_swank_cmd = '!swank-mit'
+        "let g:slimv_python_version = 2
+        ""let g:slimv_swank_cmd = '!swank-racket'
+        ""
 "
     " Client Specific Settings
         " GUI Settings
-        if isgui
+        if has ('gui_running')
             nnoremap <c-^> <c-]> " gVim hates programmer's dvorak, apparently, fix ctrl-]
             " uses external windows clipboard for selections
             set guioptions+=a
@@ -294,3 +339,5 @@
                 set guifont=Consolas\ 11
             endif
         endif
+"
+    redraw
