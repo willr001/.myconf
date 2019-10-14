@@ -1,34 +1,34 @@
 setlocal EnableDelayedExpansion
 
 :: install chocolatey package manager
-PowerShell -NoProfile -Command ^
-    "Set-ExecutionPolicy Bypass -Scope Process -Force; ^
-    iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))"
+PowerShell -NoProfile -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))"
 call %programdata%\chocolatey\bin\RefreshEnv.cmd
 
 :: install programs
-choco install -y ^
-    git ^
-    curl ^
-    mingw ^
-    msys2 ^
-    llvm ^
-    python3 ^
-    ruby ^
-    autohotkey ^
-    vim ^
-    notepadplusplus ^
-    programmer-dvorak ^
-    vscode ^
-    kdiff3 ^
-    visualstudio2019-workload-vctools ^
-    cmake ^
-	firefox
+choco install -y                        ^
+    git                                 ^
+    curl                                ^
+    mingw                               ^
+    python3                             ^
+    ruby                                ^
+    autohotkey                          ^
+    gnuwin32-coreutils.portable         ^
+    vim                                 ^
+    notepadplusplus                     ^
+    programmer-dvorak                   ^
+    vscode                              ^
+    kdiff3                              ^
+    visualstudio2019-workload-vctools   ^
+    cmake                               ^
+	firefox                             ^
+    vlc
     
 call RefreshEnv
 
 :: install myconf
 set myconfpath="%userprofile%\.myconf"
+rmdir /s /q temp-myconf
+rmdir /s /q %myconfpath%
 git clone https://github.com/willr001/.myconf temp-myconf
 xcopy temp-myconf\.git %myconfpath% /E /H /I /K
 rmdir /s /q temp-myconf
