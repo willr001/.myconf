@@ -18,7 +18,9 @@ choco install -y                        ^
     cmake                               ^
     firefox                             ^
     vlc                                 ^
-    google-chrome
+    google-chrome                       ^
+    mc                                  ^
+    clink
     
 call RefreshEnv
 

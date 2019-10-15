@@ -150,32 +150,34 @@
         "
 "
     " Key Bindings
-    "
-        " Leaders
-        let mapleader = '\'
-        let maplocalleader = 'L'
-        map , <leader>
-        " YCM
-        " FixIt
-        nnoremap <leader>ycf :YcmCompleter FixIt<cr>
-        " Echos
-        nnoremap <leader>yct :YcmCompleter GetType<cr>
-        nnoremap <leader>ycd :YcmCompleter GetDoc<cr>
-        nnoremap <leader>ycp :YcmCompleter GetParent<cr>
-        " Gotos
-        nnoremap <leader>ycg :YcmCompleter GoTo<cr>
-        nnoremap <leader>ycgg :YcmCompleter GoTo<cr>
-        nnoremap <leader>ycgi :YcmCompleter GoToInclude<cr>
-        nnoremap <leader>ycgd :YcmCompleter GoToDefinition<cr>
-        nnoremap <leader>ycgh :YcmCompleter GoToDeclaration<cr>
-        nnoremap <leader>ycgr :YcmCompleter GoToReferences<cr>
-        nnoremap <leader>ycgp :YcmCompleter GoToParent<cr>
-        " nerdtree
-        nnoremap <leader>ntt :NERDTreeCWD<cr>
-        nnoremap <leader>nto :NERDTreeCWD<cr>
-        nnoremap <leader>ntc :NERDTreeClose<cr>
-        nnoremap <leader>nt<space> :NERDTree<space><c-z>
-        nnoremap <leader>ntb :NERDTreeFromBookmark<space><c-z>
+        "
+            " Leaders
+            let mapleader = '\'
+            let maplocalleader = 'L'
+            map , <leader>
+        "
+            " YCM
+            " FixIt
+            nnoremap <leader>ycf :YcmCompleter FixIt<cr>
+            " Echos
+            nnoremap <leader>yct :YcmCompleter GetType<cr>
+            nnoremap <leader>ycd :YcmCompleter GetDoc<cr>
+            nnoremap <leader>ycp :YcmCompleter GetParent<cr>
+            " Gotos
+            nnoremap <leader>ycg :YcmCompleter GoTo<cr>
+            nnoremap <leader>ycgg :YcmCompleter GoTo<cr>
+            nnoremap <leader>ycgi :YcmCompleter GoToInclude<cr>
+            nnoremap <leader>ycgd :YcmCompleter GoToDefinition<cr>
+            nnoremap <leader>ycgh :YcmCompleter GoToDeclaration<cr>
+            nnoremap <leader>ycgr :YcmCompleter GoToReferences<cr>
+            nnoremap <leader>ycgp :YcmCompleter GoToParent<cr>
+        "
+            " nerdtree
+            nnoremap <leader>ntt :NERDTreeCWD<cr>
+            nnoremap <leader>nto :NERDTreeCWD<cr>
+            nnoremap <leader>ntc :NERDTreeClose<cr>
+            nnoremap <leader>nt<space> :NERDTree<space><c-z>
+            nnoremap <leader>ntb :NERDTreeFromBookmark<space><c-z>
         " edit vimrc
         nnoremap <leader>ev :tabedit $MYVIMRC<CR>
         " Change cOlor Background
@@ -195,42 +197,6 @@
         source $VIMRUNTIME/menu.vim
         noremap <f10> :emenu <C-Z>
         nnoremap <f11> :let &background = ( &background == "dark"? "light" : "dark" )<CR>
-    "
-        " Spacebar
-        " spacebar as page down/up like in browser
-        nnoremap <space> 
-        nnoremap <s-space> 
-        " ctrl-space toggles command mode
-        noremap <c-space> :
-    "
-        " Alphas
-        " K - Kut -- change man lookup to break line to match J being Join line
-        nnoremap K i<CR><Esc>
-        " g commands
-            " buffer next/prev
-            nnoremap gB :bp<cr>
-            nnoremap gb :bn<cr>
-            " insert line
-            nnoremap go o<esc>
-            nnoremap gO O<esc>
-    "
-        " Ctrl Keys
-        " Move line
-        nnoremap <c-j> "qdd"qp
-        nnoremap <c-k> "qddk"qP
-        " Uppercase word
-        inoremap <c-u> <esc>viwUea
-        nnoremap <c-u> viwUe
-        " Easier Put/Yank/Delete using clipboard register
-        nnoremap <c-p> "*P
-        nnoremap <c-y> "*y
-        nnoremap <c-d> "*d
-        " replace
-        nnoremap <c-h> "zyiw:%s/\<<c-r>z\>//g<left><left>
-        " Save
-        nnoremap <c-s> :w<cr>
-        inoremap <c-s> <esc>:w<cr>a
-    "
 "
     " Autocommands
     " Only do this part when compiled with support for autocommands.
@@ -350,7 +316,7 @@
             set guioptions-=L "left vsplit
             " font
             if iswin
-                set guifont=mononoki:h12:cANSI:qDRAFT
+                set guifont=Noto_Mono_for_Powerline:h10:cANSI:qDRAFT
             else
                 set guifont=Consolas\ 11
             endif
