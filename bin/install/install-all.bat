@@ -54,14 +54,15 @@ if not exist "%appdata%\my-conf\powerline-fonts" (
     rmdir /s /q powerline-fonts
 )
 
+:: compile ycm
+git clone https://github.com/Valloric/YouCompleteMe "%userprofile%\vimfiles\bundle\YouCompleteMe"
+cd "%userprofile%\vimfiles\bundle\youcompleteme"
+python install.py --clang-completer
+
 :: install vundle.vim and plugins
+mkdir "%userprofile%\vimfiles\undo"
+mkdir "%userprofile%\vimfiles\backup"
+mkdir "%userprofile%\vimfiles\swap"
 git clone https://github.com/VundleVim/Vundle.Vim "%userprofile%\vimfiles\bundle\Vundle.vim"
 vim +PluginInstall +qall
 
-:: compile ycm
-cd %userprofile%\vimfiles\bundle\youcompleteme
-python install.py --clang-completer
-
-:: done
-pause
-exit /b

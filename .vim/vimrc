@@ -155,8 +155,24 @@
         let mapleader = '\'
         let maplocalleader = 'L'
         map , <leader>
+        " YCM
+        " FixIt
+        nnoremap <leader>ycf :YcmCompleter FixIt<cr>
+        " Echos
+        nnoremap <leader>yct :YcmCompleter GetType<cr>
+        nnoremap <leader>ycd :YcmCompleter GetDoc<cr>
+        nnoremap <leader>ycp :YcmCompleter GetParent<cr>
+        " Gotos
+        nnoremap <leader>ycg :YcmCompleter GoTo<cr>
+        nnoremap <leader>ycgg :YcmCompleter GoTo<cr>
+        nnoremap <leader>ycgi :YcmCompleter GoToInclude<cr>
+        nnoremap <leader>ycgd :YcmCompleter GoToDefinition<cr>
+        nnoremap <leader>ycgh :YcmCompleter GoToDeclaration<cr>
+        nnoremap <leader>ycgr :YcmCompleter GoToReferences<cr>
+        nnoremap <leader>ycgp :YcmCompleter GoToParent<cr>
         " nerdtree
         nnoremap <leader>ntt :NERDTreeCWD<cr>
+        nnoremap <leader>nto :NERDTreeCWD<cr>
         nnoremap <leader>ntc :NERDTreeClose<cr>
         nnoremap <leader>nt<space> :NERDTree<space><c-z>
         nnoremap <leader>ntb :NERDTreeFromBookmark<space><c-z>
