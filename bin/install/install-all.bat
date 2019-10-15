@@ -10,18 +10,15 @@ choco install -y                        ^
     curl                                ^
     mingw                               ^
     python3                             ^
-    ruby                                ^
     autohotkey                          ^
-    gnuwin32-coreutils.portable         ^
     vim                                 ^
-    notepadplusplus                     ^
     programmer-dvorak                   ^
-    vscode                              ^
     kdiff3                              ^
     visualstudio2019-workload-vctools   ^
     cmake                               ^
-	firefox                             ^
-    vlc
+    firefox                             ^
+    vlc                                 ^
+    google-chrome
     
 call RefreshEnv
 
@@ -48,6 +45,7 @@ if "!path:%pathToInsert%=!" equ "%path%" (
 
 :: install fancy terminal fonts
 if not exist "%appdata%\my-conf\powerline-fonts" (
+    rmdir /s /q powerline-fonts
     git clone https://github.com/powerline/fonts powerline-fonts
     PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\powerline-fonts\install.ps1'"
     mkdir "%appdata%\my-conf\powerline-fonts"
@@ -55,6 +53,7 @@ if not exist "%appdata%\my-conf\powerline-fonts" (
 )
 
 :: compile ycm
+rmdir /s /q "%userprofile%\vimfiles\bundle\YouCompleteMe"
 git clone https://github.com/Valloric/YouCompleteMe "%userprofile%\vimfiles\bundle\YouCompleteMe"
 cd "%userprofile%\vimfiles\bundle\youcompleteme"
 python install.py --clang-completer
@@ -63,6 +62,7 @@ python install.py --clang-completer
 mkdir "%userprofile%\vimfiles\undo"
 mkdir "%userprofile%\vimfiles\backup"
 mkdir "%userprofile%\vimfiles\swap"
+rmdir /s /q "%userprofile%\vimfiles\bundle\Vundle.vim"
 git clone https://github.com/VundleVim/Vundle.Vim "%userprofile%\vimfiles\bundle\Vundle.vim"
 vim +PluginInstall +qall
 
