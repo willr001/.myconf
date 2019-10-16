@@ -33,6 +33,7 @@ xcopy temp-myconf\.git %myconfpath% /E /H /I /K
 rmdir /s /q temp-myconf
 git --git-dir=%myconfpath% --work-tree="%userprofile%" reset --hard
 mklink /J "%userprofile%\vimfiles" "%userprofile%\.vim"
+mklink "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\AutoHotKey.exe" "%programfiles%\AutoHotkey\AutoHotkey.exe"
 
 :: put user/bin in path
 set "pathToInsert=%userprofile%\bin"
