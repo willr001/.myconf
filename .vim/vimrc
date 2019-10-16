@@ -228,6 +228,7 @@
             autocmd FileType c set fdm=indent
             autocmd FileType bat nnoremap <buffer> <leader>; I::<esc>
             autocmd FileType vim nnoremap <buffer> <leader>; I"<esc>
+            autocmd FileType ahk nnoremap <buffer> <leader>; I;<esc>
         augroup END
     else
         set autoindent		" always set autoindenting on
