@@ -1,0 +1,17 @@
+style=1tbs
+indent=spaces=4
+indent-preproc-cond
+pad-oper
+pad-header
+unpad-paren
+align-pointer=type
+align-reference=name
+add-brackets
+add-one-line-brackets
+convert-tabs
+max-code-length=100
+suffix=as~
+recursive
+preserve-date
+formatted
+lineend=windows

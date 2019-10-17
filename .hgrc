@@ -1,0 +1,51 @@
+[ui]
+username = Will Reynolds <will.rnlds@gmail.com>
+merge = kdiff3
+verbose = True
+
+[extensions]
+eol =
+mercurial_keyring =
+bugzilla = 
+color = 
+progress =
+convert =
+fetch =
+
+[editor-tools]
+gvim.priority = 2
+notepad++.priority = 1
+vim.priority = 0
+
+gvim.args = --remote-tab-silent $FILES
+gvim.argsln = --remote-tab-silent +$LINENUM $FILE
+gvim.argssearch = --remote-tab-silent -c":set hls" -c"/$SEARCH/" +$LINENUM $FILE
+vim.args = -f $FILES
+vim.argsln = -f +$LINENUM $FILE
+vim.argssearch = -f -c":set hls" -c"/$SEARCH/" +$LINENUM $FILE
+
+[merge-tools]
+kdiff3.priority=10
+gvimdiff.priority=6
+vimdiff.priority=5
+
+vimdiff.args=--nofork -d -g -O $local $other $base
+vimdiff.regkey=Software\Vim\GVim
+vimdiff.regkeyalt=Software\Wow6432Node\Vim\GVim
+vimdiff.regname=path
+vimdiff.diffargs=--nofork -d -g -O $parent $child
+vimdiff.diff3args=--nofork -d -g -O $parent1 $child $parent2
+
+
+[tortoisehg]
+issue.regex = ^.*TODO.*$
+
+[annotate]
+ignorews = True
+ignorewsamount = True
+ignoreblanklines = True
+
+[diff]
+ignorews = True
+ignorewsamount = True
+ignoreblanklines = True
