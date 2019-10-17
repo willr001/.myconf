@@ -2,25 +2,61 @@ setlocal EnableDelayedExpansion
 
 :: install chocolatey package manager
 PowerShell -NoProfile -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))"
-call %programdata%\chocolatey\bin\RefreshEnv.cmd
+call "%programdata%\chocolatey\bin\RefreshEnv.cmd"
 
 :: install programs
-choco install -y                        ^
-    git                                 ^
-    curl                                ^
-    mingw                               ^
-    python3                             ^
-    autohotkey                          ^
-    vim                                 ^
-    programmer-dvorak                   ^
-    kdiff3                              ^
-    visualstudio2019-workload-vctools   ^
-    cmake                               ^
-    firefox                             ^
-    vlc                                 ^
-    google-chrome                       ^
-    mc                                  ^
-    clink
+choco upgrade -y ^
+    7zip ^
+    activeperl ^
+    activetcl ^
+    astyle ^
+    autohotkey ^
+    cccp ^
+    CMake ^
+    ConEmu ^
+    cppcheck ^
+    curl ^
+    cutepdf ^
+    deluge ^
+    doxygen ^
+    dropbox ^
+    Everything ^
+    Firefox ^
+    freecommander ^
+    Ghostscript.app ^
+    git ^
+    GoogleChrome ^
+    googledrive ^
+    HexEdit ^
+    irfanview ^
+    kdiff3 ^
+    libreoffice ^
+    lua ^
+    mc ^
+    mingw ^
+    openvpn ^
+    paint.net ^
+    PDFXchangeEditor ^
+    PDFXChangeViewer ^
+    picasa ^
+    programmer-dvorak ^
+    putty ^
+    python2 ^
+    python3 ^
+    racket ^
+    reshack ^
+    ruby ^
+    steam ^
+    thunderbird ^
+    tor-browser ^
+    tortoisehg ^
+    vim ^
+    virtualbox ^
+    visualstudio2019-workload-vctools ^
+    vlc ^
+    wget ^
+    windirstat ^
+    XmlNotepad
     
 call RefreshEnv
 
@@ -40,20 +76,45 @@ set "pathToInsert=%userprofile%\bin"
 if "!path:%pathToInsert%=!" equ "%path%" (
    setx PATH "%PATH%;%pathToInsert%"
 )
-:: put cmake/bin in path
-set "pathToInsert=%programfiles%\CMake\bin"
+
+:: put chocolatey tools in path
+set "pathToInsert=%programdata%\chocolatey\tools"
 if "!path:%pathToInsert%=!" equ "%path%" (
    setx PATH "%PATH%;%pathToInsert%"
 )
 
+call refreshenv
+
+SHIMGEN -o "%userprofile%\bin\reshack.exe" -p "%programfiles(x86)%\Resource Hacker\ResourceHacker.exe" --gui
+SHIMGEN -o "%userprofile%\bin\cmake.exe"   -p "%programfiles%\CMake\bin\cmake.exe"
+
+:: install ceedling
+SET "olddir=%cd%"
+CD "%~dp0"
+WGET https://curl.haxx.se/ca/cacert.pem
+MKDIR "%userprofile%\.gem"
+MOVE cacert.pem "%userprofile%\.gem"
+SETX SSL_CERT_FILE "%userprofile%\.gem\cacert.pem"
+CD "%olddir%"
+CALL refreshenv
+CALL gem update --system
+CALL gem install rake
+CALL gem install ceedling
+CALL gem update
+
 :: install fancy terminal fonts
-if not exist "%appdata%\my-conf\powerline-fonts" (
-    rmdir /s /q powerline-fonts
-    git clone https://github.com/powerline/fonts powerline-fonts
-    PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\powerline-fonts\install.ps1'"
-    mkdir "%appdata%\my-conf\powerline-fonts"
-    rmdir /s /q powerline-fonts
-)
+SET "olddir=%cd%"
+CD "%~dp0"
+WGET https://github.com/madmalik/mononoki/raw/master/export/mononoki.zip
+WGET https://github.com/nicolalamacchia/powerline-consolas/raw/master/consola.ttf
+CD "%olddir%"
+ECHO EXTRACTING FONTS....
+7Z e -o"%~dp0" "%~dp0mononoki.zip"
+ECHO PARSING FONTS....
+FOR /F %%f in ('dir /b "%~dp0*.*tf"') DO (CALL :font "%~dp0%%f")
+ECHO CLEANING UP FONTS....
+DEL "%~dp0mononoki*"
+DEL "%~dp0consola*"
 
 :: compile ycm
 rmdir /s /q "%userprofile%\vimfiles\bundle\YouCompleteMe"
@@ -68,4 +129,13 @@ mkdir "%userprofile%\vimfiles\swap"
 rmdir /s /q "%userprofile%\vimfiles\bundle\Vundle.vim"
 git clone https://github.com/VundleVim/Vundle.Vim "%userprofile%\vimfiles\bundle\Vundle.vim"
 vim +PluginInstall +qall
+exit /b
 
+:: sub to install a font
+:font
+IF "%~x1"==".otf" SET FTYPE=(OpenType)
+IF "%~x1"==".ttf" SET FTYPE=(TrueType)
+COPY /Y "%~f1" "%SystemRoot%\Fonts\"
+REG add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts"^
+ /v "%~n1 %FTYPE%" /t REG_SZ /d "%~nx1" /f
+EXIT /B
