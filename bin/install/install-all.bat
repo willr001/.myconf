@@ -85,8 +85,8 @@ if "!path:%pathToInsert%=!" equ "%path%" (
 
 call refreshenv
 
-echo "%programdata%\chocolatey\tools\shimgen.exe" -o "%%~dp0%%~n1.exe" -p "%%~f1" %%2 >"%%userprofile%%\bin\shim.cmd"
-shim "%programfiles%\CMake\bin\cmake.exe"
+echo "%programdata%\chocolatey\tools\shimgen.exe" -o "%%~dp0%%~n1.exe" -p "%%~f1" %%2 >"%userprofile%\bin\shim.cmd"
+call shim "%programfiles%\CMake\bin\cmake.exe"
 
 :: install myconf
 set "myconf=.myconf"
@@ -128,7 +128,7 @@ DEL "%~dp0consola*"
 
 :: compile ycm
 rmdir /s /q "%userprofile%\vimfiles\bundle\YouCompleteMe"
-git clone https://github.com/Valloric/YouCompleteMe "%userprofile%\vimfiles\bundle\YouCompleteMe"
+git clone --recurse-submodules https://github.com/Valloric/YouCompleteMe "%userprofile%\vimfiles\bundle\YouCompleteMe"
 cd "%userprofile%\vimfiles\bundle\youcompleteme"
 python install.py --clang-completer
 
