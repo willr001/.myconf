@@ -87,6 +87,7 @@ call refreshenv
 
 echo "%programdata%\chocolatey\tools\shimgen.exe" -o "%%~dp0%%~n1.exe" -p "%%~f1" %%2 >"%userprofile%\bin\shim.cmd"
 call shim "%programfiles%\CMake\bin\cmake.exe"
+call shim "%programdata%\chocolatey\tools\7z.exe"
 
 :: install myconf
 set "myconf=.myconf"

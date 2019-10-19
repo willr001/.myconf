@@ -119,7 +119,7 @@
             set hidden " allow hidden buffers
             set history=200 " keep 200 lines of command line history
             set nrformats-=octal " Do not recognize octal numbers for Ctrl-A and Ctrl-X
-            set makeprg=rake " set rake as the default build program
+            set makeprg=ceedling " set rake as the default build program
             set cpo-=< " < flag causes <> in mappings to be literal
             if has('reltime')
                 set incsearch " Do incremental searching when it's possible to timeout
@@ -158,26 +158,26 @@
         "
             " YCM
             " FixIt
-            nnoremap <leader>ycf :YcmCompleter FixIt<cr>
+            nnoremap <leader>yyf :YcmCompleter FixIt<cr>
             " Echos
-            nnoremap <leader>yct :YcmCompleter GetType<cr>
-            nnoremap <leader>ycd :YcmCompleter GetDoc<cr>
-            nnoremap <leader>ycp :YcmCompleter GetParent<cr>
+            nnoremap <leader>yyt :YcmCompleter GetType<cr>
+            nnoremap <leader>yyd :YcmCompleter GetDoc<cr>
+            nnoremap <leader>yyp :YcmCompleter GetParent<cr>
             " Gotos
-            nnoremap <leader>ycg :YcmCompleter GoTo<cr>
-            nnoremap <leader>ycgg :YcmCompleter GoTo<cr>
-            nnoremap <leader>ycgi :YcmCompleter GoToInclude<cr>
-            nnoremap <leader>ycgd :YcmCompleter GoToDefinition<cr>
-            nnoremap <leader>ycgh :YcmCompleter GoToDeclaration<cr>
-            nnoremap <leader>ycgr :YcmCompleter GoToReferences<cr>
-            nnoremap <leader>ycgp :YcmCompleter GoToParent<cr>
+            nnoremap <leader>yyg :YcmCompleter GoTo<cr>
+            nnoremap <leader>yygg :YcmCompleter GoTo<cr>
+            nnoremap <leader>yygi :YcmCompleter GoToInclude<cr>
+            nnoremap <leader>yygd :YcmCompleter GoToDefinition<cr>
+            nnoremap <leader>yygh :YcmCompleter GoToDeclaration<cr>
+            nnoremap <leader>yygr :YcmCompleter GoToReferences<cr>
+            nnoremap <leader>yygp :YcmCompleter GoToParent<cr>
         "
             " nerdtree
-            nnoremap <leader>ntt :NERDTreeCWD<cr>
-            nnoremap <leader>nto :NERDTreeCWD<cr>
-            nnoremap <leader>ntc :NERDTreeClose<cr>
-            nnoremap <leader>nt<space> :NERDTree<space><c-z>
-            nnoremap <leader>ntb :NERDTreeFromBookmark<space><c-z>
+            nnoremap <leader>nnt :NERDTreeCWD<cr>
+            nnoremap <leader>nno :NERDTreeCWD<cr>
+            nnoremap <leader>nnc :NERDTreeClose<cr>
+            nnoremap <leader>nn<space> :NERDTree<space><c-z>
+            nnoremap <leader>nnb :NERDTreeFromBookmark<space><c-z>
         " edit vimrc
         nnoremap <leader>ev :tabedit $MYVIMRC<CR>
         " Change cOlor Background
@@ -279,7 +279,7 @@
         "let g:ycm_path_to_python_interpreter = '\tools\python27'
         "let g:ycm_server_python_interpreter = '\tools\python27\python.exe'
         let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-        "let g:ycm_collect_identifiers_from_tags_files = 1
+        let g:ycm_collect_identifiers_from_tags_files = 1
         "let g:ycm_always_populate_location_list = 1
     " 
         "" SlimV Config
@@ -317,7 +317,7 @@
             set guioptions-=L "left vsplit
             " font
             if iswin
-                set guifont=Noto_Mono_for_Powerline:h10:cANSI:qDRAFT
+                set guifont=mononoki:h11:cANSI
             else
                 set guifont=Consolas\ 11
             endif

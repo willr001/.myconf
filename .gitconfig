@@ -3,4 +3,5 @@
 	name = Will Reynolds
 [core]
 	editor = vim
+    autocrlf = input
 
