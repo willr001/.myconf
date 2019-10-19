@@ -15,6 +15,7 @@ choco upgrade -y cccp
 choco upgrade -y CMake
 choco upgrade -y ConEmu
 choco upgrade -y cppcheck
+choco upgrade -y ctags
 choco upgrade -y curl
 choco upgrade -y cutepdf
 choco upgrade -y deluge
