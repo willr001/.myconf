@@ -139,7 +139,14 @@ mkdir "%userprofile%\vimfiles\backup"
 mkdir "%userprofile%\vimfiles\swap"
 rmdir /s /q "%userprofile%\vimfiles\bundle\Vundle.vim"
 git clone https://github.com/VundleVim/Vundle.Vim "%userprofile%\vimfiles\bundle\Vundle.vim"
-vim +PluginInstall +qall
+vim +new +PluginInstall +qall!
+
+shutdown /r /t 30
+echo "*** RESETTING COMPUTER ***"
+echo "Press any key to cancel"
+pause
+shutdown /a
+
 exit /b
 
 :: sub to install a font
